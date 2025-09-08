@@ -1,46 +1,21 @@
-//  <div id="parent">
-//     <div id="child">
-//         <h1> i am  h1 tag </h1>
-        // <h2> i am  h1 tag </h2>
-//    </div>
-// </div>
-{/* <div id="child2">
-       <h1> i am  h1 tag </h1>
-         <h2> i am  h1 tag </h2>
-   </div> */}
-// </div>
 
-
-
-// const parent = React.createElement(
-//      "div",  
-//      {id: "parent"},// React element (Object) => html (browser understand )
-//       React.createElement( "div",{id: "child"},[
-//      React.createElement( "h1", {}, " Iam h1 tag"), 
-//       React.createElement( "h2", {}, " Iam h2 tag"), 
-// ]),
-//       React.createElement( "div",{id: "child2"},[
-//      React.createElement( "h1", {}, " Iam h1 tag"), 
-//       React.createElement( "h2", {}, " Iam h2 tag"), 
-// ]),
-// );
-
-// //jsx 
-// const heading = React.createElement(
-//     "h1", 
-//     {id: "heading", xyz: "abc"}, 
-//     "hello world form React"
-// ); //object
-
-// console.log(parent); //object
-
-
-
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
+// import Grocery from "./components/Grocery";
 
+// chunking
+// code splitting
+// dynamic bundling
+// lazy loading
+
+const Grocery = lazy(() =>import("./components/Grocery"));
 
 // react element
 
@@ -1295,33 +1270,63 @@ console.log(resObj.slice(3));
 
 // https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.52110&lng=73.85020&collection=83633&tags=layout_CCS_NorthIndian&sortBy=&filters=&type=rcv2&offset=0&page_type=null
 
-
-
-const Body = () =>{
-  const resData=resObj.slice(3);
-      return(
-            <div className="body">
-                  <div className="search">
-                        <input type="search" placeholder="Search restaurants......"></input>
-                  </div>
-                    <div className="res-container">
-                        {resData.map((res) => <RestaurantCard key={res.card.card.info.id} res={res}/>)  }                      
-                        {/* <RestaurantCard resName="KFC"
-                         cuisine="crispy fillet burger  seasoned chicken breast" /> */}
-                    </div>
-            </div>
-      )
-}
+// const Body = () =>{
+//   const resData=resObj.slice(3);
+//       return(
+//             <div className="body">
+//                   <div className="search">
+//                         <input type="search" placeholder="Search restaurants......"></input>
+//                   </div>
+//                     <div className="res-container">
+//                         {resData.map((res) => <RestaurantCard key={res.card.card.info.id} res={res}/>)  }                      
+//                         {/* <RestaurantCard resName="KFC"
+//                          cuisine="crispy fillet burger  seasoned chicken breast" /> */}
+//                     </div>
+//             </div>
+//       )
+// }
 
 const AppLayout = () =>{
       return(
             <div className="aap">
                <Header/>
-               <Body/>
+               <Outlet/>
             </div>
-      )
-}
+      );
+};
+//  app  the routing
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout/>,
+    children: [
+      {
+        path:"/",
+        element: <Body/>,
+      },
+         {
+           path:"/about",
+           element: <About />,
+      },
+        {
+            path:"/grocery",
+            element: <Suspense><Grocery/>
+              </Suspense>
+      }, 
+           {
+            path:"/contact",
+            element: <Contact />,
+      },  
+          {
+            path:"/restaurents/:resId",
+            element: <RestaurantMenu />,
+      }, 
+    ],
+    errorElement: <Error />,
+  },
+ 
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<AppLayout/>);
+root.render(<RouterProvider router={appRouter} />);
