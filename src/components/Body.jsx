@@ -1,6 +1,6 @@
 
 import { Link } from "react-router";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { useEffect, useState } from "react";
 import useOnlineStatus from "../../utils/useOnlineStatus";
@@ -10,6 +10,10 @@ const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   
   const [searchText, setSearchText] = useState("");
+
+   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+  console.log("body render",listOfRestaurants)
+
   
   useEffect(() => {
     fetchData();
@@ -34,52 +38,66 @@ const Body = () => {
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <div className="filter">
-        <div className="search">
-          <input
-            type="text"
-            className="search-box"
-            value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-          />
-          <button
-            onClick={() => {
-              const filteredRestaurant = listOfRestaurants.filter((res) =>
-                res?.card?.card?.info?.name
-                  ?.toLowerCase()
-                  .includes(searchText.toLowerCase())
-              );
-              setFilteredRestaurant(filteredRestaurant);
-            }}
-          >
-            Search
-         </button>
+    <div className="body px-6 py-6 max-w-7xl mx-auto">
+      
+  {/* Filter/Search Bar */}
+  <div className="filter mb-6">
+    <div className="search flex flex-col sm:flex-row gap-4 items-center">
+      <input
+        type="text"
+        className="search-box border border-gray-300 px-4 py-2 rounded-md w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-pink-400 shadow-sm"
+        placeholder="Search restaurants..."
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+      />
 
-          <button
-            className="filter-btn"
-            onClick={() => {
-              const filteredList = listOfRestaurants.filter(
-                (res) => res?.card?.card?.info?.avgRating > 4.2
-              );
-              setFilteredRestaurant(filteredList);
-            }}
-          >
-            Top Rated Restaurant
-          </button>
-        </div>
-      </div>
+      <button
+        onClick={() => {
+          const filteredRestaurant = listOfRestaurants.filter((res) =>
+            res?.card?.card?.info?.name
+              ?.toLowerCase()
+              .includes(searchText.toLowerCase())
+          );
+          setFilteredRestaurant(filteredRestaurant);
+        }}
+        className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition"
+      >
+        Search
+      </button>
 
-      <div className="res-container">
-        {filteredRestaurant.map((res, index) => (
-          <Link to={'/restaurents/'+res.card.card.info.id} key={res.card.card.info.id}>
-          <RestaurantCard key={index} res={res} />
-          </Link>
-        ))}
-      </div>
+      <button
+        className="filter-btn bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
+        onClick={() => {
+          const filteredList = listOfRestaurants.filter(
+            (res) => res?.card?.card?.info?.avgRating > 4.2
+          );
+          setFilteredRestaurant(filteredList);
+        }}
+      >
+        Top Rated Restaurants
+      </button>
     </div>
+  </div>
+
+  {/* Restaurants List */}
+  <div className="res-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {filteredRestaurant.map((res) => (
+      <Link
+        to={`/restaurents/${res.card.card.info.id}`}
+        key={res.card.card.info.id}
+        className="block"
+      >
+       {/* if the restaurant is promoted then add a promoted label */}
+       {res.card.card.info.promoted ? (<RestaurantCardPromoted res={res} /> ) : (
+         <RestaurantCard res={res} />
+       )}
+        
+      </Link>
+    ))}
+  </div>
+</div>
+
+
   );
 };
 

@@ -52,22 +52,14 @@ class UserClass extends React.Component {
     // console.log('child render')
     const { name, location, avatar_url } = this.state.userInfo;
     // const {count,count1} = this.state
-    return (
-      <div className="user-card">
-        {/* <h2> count:-{count}</h2>
-        <h1> count:-{count1}</h1>
-        <button onClick={()=>{
-          //never update state variables directly to do 
-          this.setState ({
-              count: this.state.count+1
-          });
-        }}>count increase</button> */}
-        <img  src={avatar_url}/>
-        <h2>Name: Meenu Kumari</h2>
-        <h3>Location: India</h3>
-        <h4>Contact: 8907654328</h4>
-      </div>
-    );
+    // return (
+    //   <div className="user-card">
+    //     <img  src={avatar_url}/>
+    //     <h2>Name: Meenu Kumari</h2>
+    //     <h3>Location: India</h3>
+    //     <h4>Contact: 8907654328</h4>
+    //   </div>
+    // );
   }
 }
 
