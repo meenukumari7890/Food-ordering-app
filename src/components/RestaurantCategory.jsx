@@ -1,32 +1,35 @@
 import { use, useState } from "react";
 import ItemList from "./ItemList";
 
-const RestaurantCategory = ({data }) => {
-
-    const [showItems, setShowItems] = useState(false);
-    const handleClick=()=>{
-        setShowItems(!showItems);
-        console.log("click")
-    }
-    return(
-        <div className=" mx-auto my-4 bg-gray-100 shadow-lg rounded-md p-4 w-230">
-    {/* Header */}
-    <div className="flex justify-between items-center cursor-pointer w-220" onClick={handleClick}>
+const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
+  // const [showItems, setShowItems] = useState(false);
+  const handleClick = () => {
+    // setShowItems(!showItems);
+    setShowIndex();
+    console.log("click");
+  };
+  return (
+    <div className=" mx-auto my-4 bg-gray-100 shadow-lg rounded-md p-4 w-230">
+      {/* Header */}
+      <div
+        className="flex justify-between items-center cursor-pointer w-220"
+        onClick={handleClick}
+      >
         <span className="font-bold text-lg text-gray-800 ">
-            {data.title} ({data.itemCards.length})
+          {data.title} ({data.itemCards.length})
         </span>
         <span className="text-xl">⬇️</span>
-    </div>
+      </div>
 
-    {/* Item List */}
-    <div className="mt-4">
+      {/* Item List */}
+      <div className="mt-4">
         {showItems && <ItemList items={data.itemCards} />}
+      </div>
     </div>
-</div>
-
-    )
-}
+  );
+};
 export default RestaurantCategory;
+
 
 
 // import { useState } from "react";
@@ -64,12 +67,6 @@ export default RestaurantCategory;
 
 // export default RestaurantCategory;
 
-
-
-
-
-
-
 // import React, { useState } from "react";
 
 // const ItemSection = ({ data }) => {
@@ -82,7 +79,7 @@ export default RestaurantCategory;
 //     return (
 //         <div className="w-full max-w-[600px] mx-auto my-3 bg-gray-100 shadow-lg p-4 rounded-md">
 //             {/* Header */}
-//             <div 
+//             <div
 //                 className="flex justify-between items-center cursor-pointer"
 //                 onClick={toggleDropdown}
 //             >
@@ -98,8 +95,8 @@ export default RestaurantCategory;
 //             {isOpen && (
 //                 <div className="mt-4 space-y-2">
 //                     {data.itemCards.map((item, index) => (
-//                         <div 
-//                             key={index} 
+//                         <div
+//                             key={index}
 //                             className="p-3 bg-white border rounded shadow-sm hover:bg-gray-50"
 //                         >
 //                             <p className="font-medium">{item.name}</p>

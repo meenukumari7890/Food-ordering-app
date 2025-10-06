@@ -1,8 +1,10 @@
 import { LOGO_URL } from "../common/constant";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../../utils/useOnlineStatus";
+import Shimmer from "./Shimmer";
+import UserContext from "../../utils/UserContext";
 
 const Header = () => {
 
@@ -10,6 +12,8 @@ const Header = () => {
 
       const [btnNameReact, setBtnNameReact] = useState("Login");
       const onlineStatus = useOnlineStatus();
+
+      // const {loggedInUser} = useContext(UserContext);
 
 // if no dependency array => useEffect is called on every render
 // if dependency array is empty = [] => iseEffect is called on initial render(just once)
@@ -65,6 +69,7 @@ const Header = () => {
             <Link className="text-black hover:underline" to="/">
               Home
             </Link>
+          
           </li>
           <li>
             <Link className="text-black hover:underline" to="/about">
@@ -92,6 +97,8 @@ const Header = () => {
             >
               {btnNameReact}
             </button>
+
+            {/* <li className="text-black">{loggedInUser}</li> */}
           </li>
         </ul>
       </div>

@@ -1,5 +1,3 @@
-
-
 import { CDN_URL } from "../common/constant";
 
 const ItemList = ({ items }) => {
@@ -29,19 +27,16 @@ const ItemList = ({ items }) => {
           </div>
 
           <div className="flex flex-col items-center w-36 relative">
-           
-           {/* <div className="flex flex-col items-center w-40"> */}
+            {/* <div className="flex flex-col items-center w-40"> */}
             <img
               src={CDN_URL + item.card.info.imageId}
               alt={item.card.info.name}
               className="w-full h-32 object-cover rounded-md"
-            />  
-             <div className="absolute">
-            <button
-              className="p-2 bg-black text-white shadow-lg rounded-lg mx-5 w-15 text-sm  mt-24 h-10"
-            >
-              Add +
-            </button>
+            />
+            <div className="absolute">
+              <button className="p-2 bg-black text-white shadow-lg rounded-lg mx-5 w-15 text-sm  mt-24 h-10">
+                Add +
+              </button>
             </div>
           </div>
         </div>
