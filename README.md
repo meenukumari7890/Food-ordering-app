@@ -39,3 +39,12 @@ import {component} form "path";
 (Normal js utility functions) 
 - useState() - superpowerful  state variables in react
 - useEffect() - 
+
+
+# redux toolkit
+- install  @redux/toolkit and rect-redux
+- build our store 
+- connect our store to our aap
+- slice (cartslice)
+- dispatch(actoin)
+- selector

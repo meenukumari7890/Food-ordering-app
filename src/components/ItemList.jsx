@@ -1,16 +1,25 @@
 import { CDN_URL } from "../common/constant";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../utils/cartSlice";
 
 const ItemList = ({ items }) => {
+  const dispatch = useDispatch();
+
+  const handleAddItem = (item) => {
+    // dispatch an action to add item to cart
+    dispatch(addItem(item));
+    console.log("Item added to cart:", item);
+  };
   return (
-    <div className="  w-220">
+    <div >
       {items.map((item) => (
         <div
           key={item.card.info.id}
-          className="flex gap-4 p-4 border-b border-gray-900 bg-white rounded-md shadow-s hover:shadow-md "
+          className="p-2 m-2 border-gray-200 border-b-2 text-left flex justify-between"
         >
           {/* Text Content (left) */}
-          <div className=" flex flex-col justify-between flex-grow ">
-            <div>
+          <div className="w-9/12">
+            <div className="py-2">
               <h3 className="text-base font-bold text-gray-800">
                 {item.card.info.name}
               </h3>
@@ -27,14 +36,16 @@ const ItemList = ({ items }) => {
           </div>
 
           <div className="flex flex-col items-center w-36 relative">
-            {/* <div className="flex flex-col items-center w-40"> */}
             <img
               src={CDN_URL + item.card.info.imageId}
               alt={item.card.info.name}
               className="w-full h-32 object-cover rounded-md"
             />
             <div className="absolute">
-              <button className="p-2 bg-black text-white shadow-lg rounded-lg mx-5 w-15 text-sm  mt-24 h-10">
+              <button
+                className="p-2 bg-black text-white shadow-lg rounded-lg mx-5 w-15 text-sm  mt-24 h-10"
+                onClick={() => handleAddItem(item)}
+              >
                 Add +
               </button>
             </div>

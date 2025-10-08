@@ -8,6 +8,9 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
+import {Provider} from "react-redux";
+import aapStore from "../utils/appStore";
+import Cart from "./components/Cart";
 // import Grocery from "./components/Grocery";
 
 // chunking
@@ -17,105 +20,6 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 
 const Grocery = lazy(() =>import("./components/Grocery"));
 
-// react element
-
-// const heading = (
-//       <h1 className="head" tabIndex="5">
-//             React uSing JSX </h1>
-// )
-
-// const Title =  function() {
-//       return(
-//       <h1 className="head" tabIndex="5">
-//             React uSEing JSX </h1>
-// )
-// }
-// const Title1 = () =>(
-//       <h1 className="head">
-//             i am meenu 
-//       </h1>
-// )
-
-//react functional component
-
-// const HeadingComponent =  () => (
-//       <div id="container" >
-//             {Title()}
-//             <Title1/>
-//             <Title></Title>
-//        <h1>  React Functional Component...................</h1>
-//        </div>
-// );
-//     const root = ReactDOM.createRoot(document.getElementById("root"));
-
-//     root.render(<HeadingComponent />);
-
-// const Header = () => {
-//       return(
-//             <div className="header">
-//                   <div className="img-container">
-//                         <img className="logo"
-//                         src="https://tse2.mm.bing.net/th/id/OIP.KVjCUFp2n-FA3dQsjiA62wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"/>
-//                   </div>
-//                   <div className="nav-items">
-//                      <ul>
-//                         <li>Home</li>
-//                          <li>About Us</li>
-//                           <li>Contact Us</li>
-//                            <li>Cart</li>
-//                      </ul>
-//                   </div>
-//             </div>
-//       );
-// };
-
-// const RestaurantCard = () =>{
-//       return(
-//       <div className="res-container">
-//             <div className="res-card">
-//                   <img className="res-logo"
-//                    src="https://tse1.mm.bing.net/th/id/OIP.KA6JbM4R8pzPV0WfOyt9wwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3"></img>
-//                   <h3>Call Me Chow</h3>
-//                   <h4>Asian fusion including Chinese, Japanese,</h4>
-//                   <h4> ★4.0 rating</h4>
-//                   <h4> 24 min </h4>
-//             </div>
-//              <div className="res-card">
-//                   <img className="res-logo"
-//                    src="https://lawrato.com/newsuploads/1514122189KFC-Fillet-box-meal.jpg"></img>
-//                   <h3>KFC</h3>
-//                   <h4>A crispy fillet burger made with a seasoned chicken breast.</h4>
-//                   <h4>★4.5 rating</h4>
-//                   <h4>30 min </h4>
-//             </div>
-//             <div className="res-card">
-//                   <img className="res-logo"
-//                    src="https://media-cdn.tripadvisor.com/media/photo-s/18/ad/9a/0e/img-20190727-wa0039-largejpg.jpg"></img>
-//                   <h3>Kannur Food Point</h3>
-//                   <h4>Regional specialties like South Indian, Kerala, Biryani, Arabic</h4>
-//                   <h4>★3.5 rating</h4>
-//                   <h4>35 min </h4>
-            
-//             </div>
-//              <div className="res-card">
-//                   <img className="res-logo"
-//                    src="https://b.zmtcdn.com/data/pictures/chains/3/18585713/e82106649a486aee010a3667803b3b54_featured_v2.jpg"></img>
-//                   <h3>Meghana Foods</h3>
-//                   <h4> Offers a variety including Chinese, Continental, North Indian, </h4>
-//                   <h4>★2.5 rating</h4>
-//                   <h4>14 min </h4>
-//             </div>
-//              <div className="res-card">
-//                   <img className="res-logo"
-//                    src="https://media-cdn.tripadvisor.com/media/photo-s/18/ad/9a/0b/img-20190727-wa0036-largejpg.jpg"></img>
-//                   <h3> Food Music Love</h3>
-//                   <h4>budget-friendly Kerala dishes, mango shake popular</h4>
-//                   <h4>★5.5 rating</h4>
-//                   <h4>34 min </h4>
-//             </div>
-//             </div>
-//       )
-// }
 const resObj = [
       {
         "card": {
@@ -1247,51 +1151,15 @@ const resObj = [
     ]
 console.log(resObj.slice(3));
 
-// const RestaurantCard = ({res}) =>{
-  
-//   const imgId = res.card.card.info.cloudinaryImageId
-//   const url= "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"+imgId
-//       // const { resData} = props;
-//       console.log(res);
-//       return(
-//             <div className="res-card">
-//                   <img className="res-logo"
-//                    src={url}></img>
-//                   <h3>{res.card.card.info.name}</h3>
-//                   <h4>{res.card.card.info.cuisines.join(", ")}</h4>
-//                  <h4>Rating is {res.card.card.info.avgRating}</h4> 
-//                  <h4>Cost of Two : {res.card.card.info.costForTwo}</h4>   
-//                    <h4>{res.card.card.info.sla.slaString}</h4>  
-
-
-//             </div>
-//       )
-// }
-
-// https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.52110&lng=73.85020&collection=83633&tags=layout_CCS_NorthIndian&sortBy=&filters=&type=rcv2&offset=0&page_type=null
-
-// const Body = () =>{
-//   const resData=resObj.slice(3);
-//       return(
-//             <div className="body">
-//                   <div className="search">
-//                         <input type="search" placeholder="Search restaurants......"></input>
-//                   </div>
-//                     <div className="res-container">
-//                         {resData.map((res) => <RestaurantCard key={res.card.card.info.id} res={res}/>)  }                      
-//                         {/* <RestaurantCard resName="KFC"
-//                          cuisine="crispy fillet burger  seasoned chicken breast" /> */}
-//                     </div>
-//             </div>
-//       )
-// }
 
 const AppLayout = () =>{
       return(
+        <Provider store={aapStore }>
             <div className="aap">
                <Header/>
                <Outlet/>
             </div>
+        </Provider>
       );
 };
 //  app  the routing
@@ -1321,6 +1189,10 @@ const appRouter = createBrowserRouter([
             path:"/restaurents/:resId",
             element: <RestaurantMenu />,
       }, 
+          {
+           path:"/cart",
+           element: <Cart />,
+      },
     ],
     errorElement: <Error />,
   },
